@@ -1,1 +1,20 @@
-<h1>Home</h1>
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <title>IRMTech</title>
+  <a href="{% url 'store' %}" style="text-decoration: none;"><h1>IRMTech EStore</h1></a>
+</head>
+
+<body>
+    <h2>Hello Mr.  {% if user.is_authenticated %}{{User.name}}! You are a/an {{User.group}}. Your Email is {{User.email}}{% else %}visitor{% endif %}!</h2>
+<a href="{% url 'cart' %}">Cart</a>
+<a href="{% url 'orders' %}">Orders</a>
+
+<div style="background-color: rgba(0, 103, 151, 0.144);">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+</body>
