@@ -4,6 +4,71 @@
 
 <h1>Cart</h1>
 
-<a href="{% url 'checkout' %}">Checkout</a>
+<div style="margin: 0px 12px;">
+	<div style="padding: 0px 0px;">
+		<div>
+			<a href="{% url 'store' %}">&#x2190;Continue Shopping</a>
+
+	</br></br>
+			<table>
+				<tr>
+					<th>
+						<h5>Items: <strong>{{order.get_cart_items}}</strong></h5>
+					</th>
+					<th>
+						<h5>Total: <strong>৳{{order.get_cart_total}}</strong></h5>
+					</th>
+					<th>
+
+						<a id="checkout-btn" style="float:right; margin:5px;border: 0px;" href="{% url 'checkout' %}">Checkout</a>
+					</th>
+				</tr>
+			</table>
+
+		</div>
+
+		<br>
+		<div>
+			<div>
+				<div style="flex:2"></div>
+				<div style="flex:2"><strong>Item</strong></div>
+				<div style="flex:1"><strong>Price</strong></div>
+				<div style="flex:1"><strong>Quantity</strong></div>
+				<div style="flex:1"><strong>Total</strong></div>
+			</div>
+
+
+
+			{% for item in items %}
+			<div>
+				<div style="flex:2"><img src="{{item.tech.pictureURL}}"></div>
+				<div style="flex:2">
+					<p>{{item.tech.name}}</p>
+				</div>
+				<div style="flex:1">
+					<p>৳{{item.tech.price|floatformat:2}}</p>
+				</div>
+				<div style="flex:1">
+					<p>{{item.quantity}}</p>
+
+					<div>
+						<i class='chg-quantity update-cart fas fa-chevron-up' data-tech={{item.tech.id}}
+							data-action="add" style="padding:0px;margin: 0px;">+</i>
+						</br>
+						<i class='chg-quantity update-cart fas fa-chevron-down update-cart' data-tech={{item.tech.id}}
+							data-action="remove" style="padding:0px; margin:0px;">-</i>
+					</div>
+				</div>
+				<div style="flex:1">
+					<p>৳{{item.get_total}}</p>
+				</div>
+
+			</div>
+			{% endfor %}
+
+		
+		</div>
+	</div>
+</div>
 
 {% endblock content %}
