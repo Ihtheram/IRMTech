@@ -115,3 +115,62 @@ def checkout(request):
 
     context = {'person':person, 'items':items,'order':order}
     return render(request, 'StoreApp/checkout.html',context)
+
+
+
+def updateItem(request):
+	data = json.loads(request.body)
+	techId = data['techId']
+	action = data['action']
+	# print('Action:', action)
+	# print('Tech:', techId)
+
+	user = request.user.person
+	tech = TECH.objects.get(id=techId)
+	order, created = OrderInfo.objects.get_or_create(customer=user, complete=False)
+
+	orderedTech, created = OrderedTech.objects.get_or_create(order=order, tech=tech) 
+
+	if action == 'add':
+		orderedTech.quantity = (orderedTech.quantity + 1)
+	elif action == 'remove':
+		orderedTech.quantity = (orderedTech.quantity - 1)
+
+	orderedTech.save()
+
+	if orderedTech.quantity <= 0:
+		orderedTech.delete()
+
+	return JsonResponse('Item was added', safe=False)
+
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def processOrder(request):
+	transaction_id = datetime.datetime.now().timestamp()
+	data = json.loads(request.body)
+
+	if request.user.is_authenticated:
+		user = request.user.person
+		order, created = OrderInfo.objects.get_or_create(customer=user, complete=False)
+		total = float(data['form']['total'])
+		order.transaction_id = transaction_id
+
+		if total == order.get_cart_total:
+			order.complete = True
+		order.save()
+
+		if order.shipping == True:
+			DeliveryLocation.objects.create(
+				customer=user,
+				order=order,
+				address=data['shipping']['address'],
+				city=data['shipping']['city'],
+				state=data['shipping']['state'],
+				zipcode=data['shipping']['zipcode'],
+			)
+
+	else:
+		print('User is not logged in..')
+	return JsonResponse('Payment complete!', safe=False)
