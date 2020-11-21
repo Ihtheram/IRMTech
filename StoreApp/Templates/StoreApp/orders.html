@@ -2,6 +2,42 @@
 {% load static %}
 {% block content %}
 
-<h1>Orders</h1>
+<h1>Your Orders</h1>
+
+<div style="margin: 0px 12px;">
+	<div style="padding: 0px 0px;">
+		<div>
+			<div>
+				<div style="flex:2"></div>
+				<div style="flex:2"><strong>Item</strong></div>
+				<div style="flex:1"><strong>Transaction ID</strong></div>
+				<div style="flex:1"><strong>Date</strong></div>
+			</div>
+
+
+
+            {% for orderedtech in orderedtechs %}
+            {% if orderedtech.order.complete and orderedtech.order.customer.name == person.name %}
+			<div>
+				<div style="flex:2"><img src="{{orderedtech.tech.pictureURL}}" style="height: 100px;"></div>
+				<div style="flex:2">
+					<p>{{orderedtech.tech.name}}</p>
+				</div>
+				<div style="flex:1">
+					<p>{{orderedtech.order.transaction_id}}</p>
+                </div>
+				<div style="flex:1">
+					<p>{{orderedtech.order.date_ordered}}</p>
+				</div>
+
+
+            </div>
+            {% endif %}
+			{% endfor %}
+
+		
+		</div>
+	</div>
+</div>
 
 {% endblock content %}

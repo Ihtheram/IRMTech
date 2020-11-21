@@ -65,6 +65,8 @@ def orders(request):
         person=request.user.person
         order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
         items = order.orderedtech_set.all()
+        orderedtechs = OrderedTech.objects.all()
+
     else:
         person = {
 			'name':'guest',
@@ -73,8 +75,11 @@ def orders(request):
         }
         order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
         items = []
+        orderedtechs = []
+    
 
-    context = {'person':person, 'items':items,'order':order}
+
+    context = {'person':person, 'items':items,'order':order, 'orderedtechs':orderedtechs}
     return render(request, 'StoreApp/orders.html',context)
 
 
@@ -120,29 +125,28 @@ def checkout(request):
 
 
 def updateItem(request):
-	data = json.loads(request.body)
-	techId = data['techId']
-	action = data['action']
-	# print('Action:', action)
-	# print('Tech:', techId)
 
-	user = request.user.person
-	tech = TECH.objects.get(id=techId)
-	order, created = OrderInfo.objects.get_or_create(customer=user, complete=False)
+    user = request.user.person
+    order, created = OrderInfo.objects.get_or_create(customer=user, complete=False)
+    
+    data = json.loads(request.body)
+    techId = data['techId']
+    tech = TECH.objects.get(id=techId)
+    
+    orderedTech, created = OrderedTech.objects.get_or_create(order=order, tech=tech) 
+    
+    action = data['action']
+    if action == 'add':
+        orderedTech.quantity = (orderedTech.quantity + 1)
+    elif action == 'remove':
+        orderedTech.quantity = (orderedTech.quantity - 1)
 
-	orderedTech, created = OrderedTech.objects.get_or_create(order=order, tech=tech) 
+    orderedTech.save()
 
-	if action == 'add':
-		orderedTech.quantity = (orderedTech.quantity + 1)
-	elif action == 'remove':
-		orderedTech.quantity = (orderedTech.quantity - 1)
+    if orderedTech.quantity <= 0:
+        orderedTech.delete()
 
-	orderedTech.save()
-
-	if orderedTech.quantity <= 0:
-		orderedTech.delete()
-
-	return JsonResponse('Item was added', safe=False)
+    return JsonResponse('Item was added', safe=False)
 
 
 from django.views.decorators.csrf import csrf_exempt
