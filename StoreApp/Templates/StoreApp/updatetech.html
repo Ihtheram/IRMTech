@@ -1,0 +1,22 @@
+{% extends 'StoreApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Update Tech</h1>
+<div>
+	<div>
+		<h1>{{this_tech.name}}</h1>
+		<img src="{{this_tech.pictureURL}}" style="height:500px ; "></img>
+	</div>
+	
+	<div class="col-lg-6">
+
+	</br></br></br></br>
+	<h2>
+		Seller: <i style="color: rgb(0, 129, 204);">
+			{{this_tech.seller}} </h2> </i>
+		</br></br></br></br>
+	<h3>৳{{this_tech.price}}</h3>	
+</div>
+</div>
+{% endblock content %}

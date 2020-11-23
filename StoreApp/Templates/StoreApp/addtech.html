@@ -1,0 +1,18 @@
+{% extends 'StoreApp/main.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Add New Tech</h1>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form}}
+  
+    <input type="submit" name="Submit">
+
+</form>
+{% if image %}
+uploaded image at
+<a href="{{image}}">{{image}}</a>
+{% endif %}  
+{% endblock content %}

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html style="min-height: 100%;">
 
 <head>
   <title>IRMTech</title>
+  <link rel="icon" href="media/favicon (9).ico" type="image/gif" sizes="16x16">
   <!-- RESPONSIVE LAYOUT -->
   <meta name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
@@ -46,7 +47,7 @@
 
 </head>
 
-<body>
+<body style="min-height: 100%;">
   <!-- MENU BAR -->
   <div class="menubar"
     style="position:fixed; padding: 0px; width: 100%;  float: left; align-content: initial;background-color: rgba(77, 77, 77, 0);z-index: 2;">
@@ -81,15 +82,21 @@
           </a>
 
           <!-- Desktop login and signup buttons -->
+          <div id='desktop-userbuttons' class="menubar_div-content">
           {% if request.user.is_authenticated %}
           {% else %}
-          <div id='desktop-userbuttons' class="menubar_div-content">
             <a class="menu_link" style="float: right;" href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Log in
             </a>
             <a class="menu_link" style="float: right;" href="{% url 'signup' %}"><i class="fa fa-pencil-square-o"></i>
               Sign up</a>
-          </div>
+
           {% endif %}
+          {% if request.user.is_authenticated and person.user_type == "Admin" %}
+          <a class="uopt" href="{% url 'manage_techs' %}">Manage Techs</a>
+          {% else %}
+          <button><a href="{% url 'orders' %}">My Orders</a></button>
+          {% endif %}
+        </div>
 
           <!-- User drop down menu -->
           <div id="userDropdown" class="usermenu-content">

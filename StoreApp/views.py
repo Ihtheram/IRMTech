@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic import TemplateView
 
-# from .forms import NewUserForm
+from .forms import TechForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -187,30 +187,6 @@ def processOrder(request):
 	return JsonResponse('Payment complete!', safe=False)
 
 
-
-def manageTechs(request):
-
-    if request.user.is_authenticated:
-        person=request.user.person
-        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
-        items= order.orderedtech_set.all()
-        cartItems = order.get_cart_items
-    else:
-        person = {
-			'name':'guest',
-			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
-			'email':'null'
-        }
-        order = {'get_cart_items':0, 'shipping':False}
-        items = []
-        cartItems = order['get_cart_items']
-
-    techs = TECH.objects.all()
-    context = {'person':person, 'techs':techs, 'items':items,'order':order}
-    return render(request, 'StoreApp/managetechs.html',context)
-
-
-
 def signup(request):
 
     if request.user.is_authenticated:
@@ -238,3 +214,96 @@ def signup(request):
         return render(request, 'registration/signup.html', {
 			'items': items, 'order': order, 'user': user,'form':form
 	})
+
+from django.core.files.storage import FileSystemStorage
+def addTech(request):
+
+    form = TechForm()
+    
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    techs = TECH.objects.all()
+    context = {'form':form, 'person':person, 'techs':techs, 'items':items,'order':order}
+
+    if request.method == 'POST':
+        #to see what info are input, in console, uncomment the line below
+        #print('Printing POST:', request.POST)
+        form = TechForm(request.POST, request.FILES)
+        uploaded_image = request.FILES('document')
+        fss = FileSystemStorage()
+        imagename = fss.save(uploaded_image.name, uploaded_image)
+        context['image']=fss.url(imagename)
+        
+
+        if form.is_valid():
+            form.save()
+            return redirect('manage_techs')  
+    
+    return render(request, 'StoreApp/addtech.html',context)
+
+
+
+def manageTechs(request):
+
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    techs = TECH.objects.all()
+    context = {'person':person, 'techs':techs, 'items':items,'order':order}
+    return render(request, 'StoreApp/managetechs.html',context)
+
+
+def updateTech(request, techId):
+    form = TechForm()
+    # if request.method == 'POST':
+        #to see what info are input, in console, uncomment the line below
+        #print('Printing POST:', request.POST)
+        # form = TechForm(request.POST, request.FILES)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect('manage_techs')
+
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items = order.orderedtech_set.all()
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
+        items = []
+    try:
+        this_tech = TECH.objects.get(id=techId)
+    except TECH.DoesNotExist:
+        raise Http404("Tech does not exist")
+
+    context = {'form':form, 'person':person, 'this_tech': this_tech, 'items':items,'order':order}
+    return render(request, 'StoreApp/updatetech.html',context)
