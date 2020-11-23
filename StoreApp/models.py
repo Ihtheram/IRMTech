@@ -5,23 +5,27 @@ from django.contrib.auth.models import User, Group
 
 # An admin, or seller or customer
 class PERSON(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    group = models.OneToOneField(Group, null=True, blank=True, on_delete=models.CASCADE, default=3)
-    name = models.CharField(max_length=200, null=True)
-    email = models.EmailField(max_length=200)
-    image = models.ImageField(null=True, blank=True)   
+	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	name = models.CharField(max_length=200, null=True)
+	email = models.EmailField(max_length=200)
+	image = models.ImageField(null=True, blank=True)
+	CUSTOMER = 'Customer'
+	SELLER = 'Seller'
+	ADMIN = 'Admin'
+	USER_TYPE_CHOICES = [(CUSTOMER, 'Customer'),(SELLER, 'Seller'),(ADMIN, 'Admin')]
+	user_type = models.CharField(max_length=8,choices=USER_TYPE_CHOICES,default=CUSTOMER)
 
-    def __str__(self):
-        return self.name
+	def __str__(self):
+		return self.name
 	
     # User profile picture
-    @property
-    def imageURL(self):
-        try:
-            url = self.image.url
-        except:
-            url = 'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png'
-        return url
+	@property
+	def imageURL(self):
+		try:
+			url = self.image.url
+		except:
+			url = 'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png'
+		return url
 
 # A tech item either digital or physical 
 class TECH(models.Model):

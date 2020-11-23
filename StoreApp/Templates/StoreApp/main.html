@@ -36,10 +36,23 @@
   <h2>Hello Mr. {% if user.is_authenticated %}{{person.name}}! You are a/an {{person.group}}. Your Email is
     {{person.email}}{% else %}visitor{% endif %}!</h2>
   <button><a href="{% url 'store' %}">Home</a></button>
+
   <button><a href="{% url 'orders' %}">My Orders</a></button>
   <button><a href="{% url 'cart' %}">
       <span id="cart-total">Cart[{{order.get_cart_items}}]</span>
     </a></button>
+    <div style="float:right;">
+    {% if user.is_authenticated %}
+    {% if person.user_type == "Admin" %}
+    <button><a href="{% url 'manage_techs' %}">Manage Techs</a></button>
+    {% endif %}
+    <button><a href="http://127.0.0.1:8000/admin/logout/">Log out</a></button>
+    {% else %}
+    <button><a href="{% url 'login' %}">Log in</a></button>
+    <button><a href="{% url 'signup' %}">Sign up</a></button>
+    {% endif %}
+
+    </div>
 
   <div style="background-color: rgba(0, 103, 151, 0.144);">
     {% block content %}

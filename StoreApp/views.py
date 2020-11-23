@@ -9,6 +9,12 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic import TemplateView
 
+# from .forms import NewUserForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 def store(request):
@@ -179,3 +185,56 @@ def processOrder(request):
 	else:
 		print('User is not logged in..')
 	return JsonResponse('Payment complete!', safe=False)
+
+
+
+def manageTechs(request):
+
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    techs = TECH.objects.all()
+    context = {'person':person, 'techs':techs, 'items':items,'order':order}
+    return render(request, 'StoreApp/managetechs.html',context)
+
+
+
+def signup(request):
+
+    if request.user.is_authenticated:
+        user=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=user, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        user = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+		}
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('store')
+    else:
+        form = UserCreationForm()
+        return render(request, 'registration/signup.html', {
+			'items': items, 'order': order, 'user': user,'form':form
+	})
