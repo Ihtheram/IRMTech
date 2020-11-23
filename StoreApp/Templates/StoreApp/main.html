@@ -4,9 +4,23 @@
 
 <head>
   <title>IRMTech</title>
-  <a href="{% url 'store' %}" style="text-decoration: none;">
-    <h1>IRMTech EStore</h1>
-  </a>
+  <!-- RESPONSIVE LAYOUT -->
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="HandheldFriendly" content="true">
+
+  <!-- THEME STYLESHEETS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/IRMGlowDark.css' %}">
+
+  <!-- Font STYLESHEETS / SCRIPTS -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Audiowide|Faster+One|Hanalei+Fill|Iceland|Josefin+Sans|Play|Racing+Sans+One|Wallpoet|Frosw|Righteous&display=swap">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
   <!-- JS for ADDING TO CART -->
   <script type="text/javascript">
@@ -33,28 +47,120 @@
 </head>
 
 <body>
-  <h2>Hello Mr. {% if user.is_authenticated %}{{person.name}}! You are a/an {{person.group}}. Your Email is
-    {{person.email}}{% else %}visitor{% endif %}!</h2>
-  <button><a href="{% url 'store' %}">Home</a></button>
+  <!-- MENU BAR -->
+  <div class="menubar"
+    style="position:fixed; padding: 0px; width: 100%;  float: left; align-content: initial;background-color: rgba(77, 77, 77, 0);z-index: 2;">
 
-  <button><a href="{% url 'orders' %}">My Orders</a></button>
-  <button><a href="{% url 'cart' %}">
-      <span id="cart-total">Cart[{{order.get_cart_items}}]</span>
-    </a></button>
-    <div style="float:right;">
-    {% if user.is_authenticated %}
-    {% if person.user_type == "Admin" %}
-    <button><a href="{% url 'manage_techs' %}">Manage Techs</a></button>
-    {% endif %}
-    <button><a href="http://127.0.0.1:8000/admin/logout/">Log out</a></button>
-    {% else %}
-    <button><a href="{% url 'login' %}">Log in</a></button>
-    <button><a href="{% url 'signup' %}">Sign up</a></button>
-    {% endif %}
+    <div class="logo_div">
+      <a class="storelink" href="{% url 'store' %}">
+        <h1 class="logotext"> IRMTech <span style=" padding-bottom: 5px;font-family: 'Righteous';"> EStore </span></h1>
+      </a>
+    </div> <!-- LOGO DIV ENDS -->
+
+    <div style="width: 100%; background-color: rgba(255, 255, 255, 0.062); z-index: 3;height: 70px;">
+      <!-- Menu Links DESKTOP -->
+
+      <div class="user_div">
+
+        <div class="usermenu">
+
+          <!-- PROFILE PICTURE DESKTOP-->
+          <img onclick="usermenuFunction()" class="user" src="{{person.imageURL}}"
+            style="float: right; width: 70px; border-radius: 100px; margin: 10px;"></img>
+
+
+
+          <!-- CART DESKTOP -->
+          <a class="cart" style="float: right; text-decoration: none; margin:20px; font-size: 40px;"
+            href="{% url 'cart' %}">
+            <p id="cart-total">
+              {{order.get_cart_items}}
+              <span class="glyphicon glyphicon-shopping-cart" style="font-size: 20px;">
+              </span>
+            </p>
+          </a>
+
+          <!-- Desktop login and signup buttons -->
+          {% if request.user.is_authenticated %}
+          {% else %}
+          <div id='desktop-userbuttons' class="menubar_div-content">
+            <a class="menu_link" style="float: right;" href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Log in
+            </a>
+            <a class="menu_link" style="float: right;" href="{% url 'signup' %}"><i class="fa fa-pencil-square-o"></i>
+              Sign up</a>
+          </div>
+          {% endif %}
+
+          <!-- User drop down menu -->
+          <div id="userDropdown" class="usermenu-content">
+
+            <H1
+              style="margin: 0%; padding: 0%; font-size: 22px; color: white; text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
+              {{person.name}}</H1>
+            {% if request.user.is_authenticated %}
+            <H1
+              style="padding: 0px 0px; font-size: 11px; color: white;  text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
+              {{person.email}}</H1>
+            <H1
+              style="padding: 0px 0px; font-size: 11px; color: white;  text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
+              {{person.user_type}}</H1>
+            <hr>
+
+            <div id="udiv3" style="text-shadow: 0px 0px 30px rgb(250, 250, 250);">
+              {% if person.user_type == "Admin" %}
+              <a class="uopt" href="{% url 'manage_techs' %}">Manage Techs</a>
+              {% else %}
+              <button><a href="{% url 'orders' %}">My Orders</a></button>
+              {% endif %}
+              <a class="logout" href="http://127.0.0.1:8000/admin/logout/"><i class="fa">&#xf2f5;</i> Logout</a>
+            </div>
+            {% else %}
+            <H1
+              style="padding: 0px 0px; font-size: 11px; color: white;  text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
+              Not logged in</H1>
+            <hr>
+            <div id='udiv2' style="text-shadow: 0px 0px 30px rgb(250, 250, 250);">
+              <a class="uopt" href="{% url 'signup' %}"><i class="fa fa-pencil-square-o"></i> Signup </a>
+              </br>
+              <a class="uopt" href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Login </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <script>
+          /* When the user clicks on the button, 
+          toggle between hiding and showing the dropdown content */
+          function usermenuFunction() {
+            document.getElementById("userDropdown").classList.toggle("show");
+          }
+
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function (event) {
+
+            if (!event.target.matches('.user')) {
+              var dropdowns = document.getElementsByClassName("usermenu-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+          }
+
+        </script>
+      </div>
+
 
     </div>
+  </div>
+  <!-- /MENU BAR -->
 
-  <div style="background-color: rgba(0, 103, 151, 0.144);">
+
+  <!-- OTHER PAGES SHOW HERE -->
+  <div class='block-contents'>
+    <br>
     {% block content %}
 
     {% endblock content %}
