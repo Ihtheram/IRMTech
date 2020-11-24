@@ -235,23 +235,25 @@ def addTech(request):
         items = []
         cartItems = order['get_cart_items']
 
-    techs = TECH.objects.all()
-    context = {'form':form, 'person':person, 'techs':techs, 'items':items,'order':order}
+
 
     if request.method == 'POST':
         #to see what info are input, in console, uncomment the line below
         #print('Printing POST:', request.POST)
         form = TechForm(request.POST, request.FILES)
-        uploaded_image = request.FILES('document')
-        fss = FileSystemStorage()
-        imagename = fss.save(uploaded_image.name, uploaded_image)
-        context['image']=fss.url(imagename)
+        # uploaded_image = request.FILES('document')
+        # fss = FileSystemStorage()
+        # imagename = fss.save(uploaded_image.name, uploaded_image)
+        # context['image']=fss.url(imagename)
         
 
         if form.is_valid():
             form.save()
             return redirect('manage_techs')  
-    
+
+    techs = TECH.objects.all()
+    context = {'form':form, 'person':person, 'techs':techs, 'items':items,'order':order}
+
     return render(request, 'StoreApp/addtech.html',context)
 
 
@@ -280,13 +282,16 @@ def manageTechs(request):
 
 def updateTech(request, techId):
     form = TechForm()
-    # if request.method == 'POST':
+    tech = TECH.objects.get(id=techId)
+    form = TechForm(instance=tech)
+
+    if request.method == 'POST':
         #to see what info are input, in console, uncomment the line below
         #print('Printing POST:', request.POST)
-        # form = TechForm(request.POST, request.FILES)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect('manage_techs')
+        form = TechForm(request.POST, instance=tech)
+        if form.is_valid():
+            form.save()
+            return redirect('manage_techs')
 
     if request.user.is_authenticated:
         person=request.user.person
@@ -307,3 +312,18 @@ def updateTech(request, techId):
 
     context = {'form':form, 'person':person, 'this_tech': this_tech, 'items':items,'order':order}
     return render(request, 'StoreApp/updatetech.html',context)
+
+
+def deleteTech(request, techId):
+
+    try:
+        this_tech = TECH.objects.get(id=techId)
+    except TECH.DoesNotExist:
+        raise Http404("Tech does not exist")
+
+    if request.method == 'POST':
+        this_tech.delete()
+        return redirect('manage_techs')
+    
+    context = {'this_tech': this_tech}
+    return render(request, 'StoreApp/deletetech.html',context)

@@ -12,7 +12,7 @@ urlpatterns = [
     path('add_tech/', views.addTech, name="add_tech"),    
     path('manage_techs/', views.manageTechs, name="manage_techs"),
     path('<int:techId>/update_tech/', views.updateTech, name="update_tech"),
-    # path('delete_tech/', views.deleteTech, name="delete_tech"),
+    path('<int:techId>/delete_tech/', views.deleteTech, name="delete_tech"),
 
    	path('update_item/', views.updateItem, name="update_item"),
 	path('process_order/', views.processOrder, name="process_order"),

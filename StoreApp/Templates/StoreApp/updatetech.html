@@ -19,4 +19,12 @@
 	<h3>৳{{this_tech.price}}</h3>	
 </div>
 </div>
+<form action="" method="POST" style="color: black;">
+	{% csrf_token %}
+	{{form}}
+
+	<input type="submit" name="Save Changes">
+	<button><a href="{% url 'delete_tech' this_tech.id %}">Delete</a></button>
+</form>
+
 {% endblock content %}
