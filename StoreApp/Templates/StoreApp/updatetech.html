@@ -2,29 +2,37 @@
 {% load static %}
 {% block content %}
 
-<h1>Update Tech</h1>
-<div>
-	<div>
-		<h1>{{this_tech.name}}</h1>
-		<img src="{{this_tech.pictureURL}}" style="height:500px ; "></img>
-	</div>
-	
+<h1 class="pagename">UPDATE TECH</h1>
+<div class="row" style="margin: 0px 0px;">
 	<div class="col-lg-6">
+	
+		<img src="{{this_tech.pictureURL}}" style="width:100%;"></img>
+	</div>
 
-	</br></br></br></br>
-	<h2>
-		Seller: <i style="color: rgb(0, 129, 204);">
-			{{this_tech.seller}} </h2> </i>
+	<div class="col-lg-6">
+		<h1
+		style="float: left;padding-left:7px; padding-bottom: 25px;  color:rgb(255, 255, 255); text-shadow: 0px 0px 2px rgb(247, 247, 247), 0px 0px 4px rgb(255, 255, 255), 0px 0px 8px rgba(255, 255, 255, 0.685), 0px 0px 30px rgba(255, 255, 255, 0.548); ;">
+		{{this_tech.name}}</h1>
 		</br></br></br></br>
-	<h3>৳{{this_tech.price}}</h3>	
-</div>
-</div>
-<form action="" method="POST" style="color: black;">
-	{% csrf_token %}
-	{{form}}
+		<div class="row" style="border-radius:3px;color: rgb(158, 158, 158); width: fit-content; padding: 60px 30px; margin: auto; background-image: linear-gradient(to right, #fc5a5a1e, rgba(255, 230, 0, 0.096) ); box-shadow: 0px 3px 5px black;">
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{form}}
+		
+			<input class="pluscart" type="submit" name="submit" value="Save Changes" style="margin: 30px 0px;">
+			
+			<!-- DELETE BUTTON -->
+			<a class="deletebtn" href="{% url 'delete_tech' this_tech.id %}">
 
-	<input type="submit" name="Save Changes">
-	<button><a href="{% url 'delete_tech' this_tech.id %}">Delete</a></button>
-</form>
+					<i class="glyphicon glyphicon-trash" style="font-size: 20px;"></i>
+					Delete Tech Item
+
+			</a>
+			
+		</form>
+	</div>
+	</div>
+</div>
+
 
 {% endblock content %}

@@ -1,36 +1,80 @@
 {% extends 'StoreApp/main.html' %}
 {% load static %}
-{% block content %}     
+{% block content %}
 
-<h1>MANAGE TECHS</h1>
-<a href="{% url 'add_tech' %}" style="text-decoration: none; padding: 5px 5px; padding-top: 0%;"><h1 style="margin: 0% 0%;font-size: 100px;">+</h1><h6 style="margin: 0% 0%;">Add New Tech</h6></a>
-{% for tech in techs %}
-<a href="{% url 'update_tech' tech.id %}" style="padding: 5px 5px;">
-    <div style="width: fit-content;">
-        <div style="height: 100px; width: fit-content; clear: both; position: relative; text-align: center;">
-            <img src="{{tech.pictureURL}}" style="height: 100%;"></img>
-            <div style="bottom: 2px; left: 5px;">
-                <h3 style="text-decoration: none; float: left; font-size: 17px; padding-top: 0px; margin-top: 0px; margin-bottom: 5px;">
-                    <strong>{{tech.name}}</strong></h3>
-            </div>
+<div class="item_div">
+
+    <h1 class="pagename">MANAGE TECHS</h1>
+
+    <div class="itemsrow">
+
+        <div class="itemscol" style="margin: 0px; overflow: hidden;">
+            <a href="{% url 'add_tech' %}" style="text-decoration: none; padding: 5px 5px; padding-top: 0%;">
+                <h1 class="plustech">+</h1>
+                <h3 style="float: left; font-size: 17px; padding-top: 0px; margin-top: 0px; margin-bottom: 15px;margin-left: 10px; text-shadow: 0px 0px 1px black, 0px 0px 4px black, 0px 0px 6px black;">
+                            <strong>Add New Tech</strong></h3>
+            </a>
+        </div>
+        
+        {% for tech in techs %}
+        <div class="itemscol" style="margin: 0px; overflow: hidden;">
+
+
+
+            <a href="{% url 'update_tech' tech.id %}">
+
+
+
+                <div style="height: 100px; width: 100%; clear: both; position: relative; text-align: left;">
+                    <img src="{{tech.pictureURL}}" style="height: 100%; width:100%;"></img>
+                    <div style="position: absolute; bottom: 2px; left: 5px;">
+                        <h3
+                            style="float: left; font-size: 17px; padding-top: 0px; margin-top: 0px; margin-bottom: 5px; text-shadow: 0px 0px 1px black, 0px 0px 4px black, 0px 0px 6px black;">
+                            <strong>{{tech.name}}</strong></h3>
+                    </div>
+                </div>
+
+
+
+                <div style="height: 10%; width: 100%; padding: 0px;clear: both;">
+
+                    <div
+                        style="position: absolute; overflow: hidden; width:50%; height:fit-content; background-color: rgba(0, 255, 255, 0); clear: both;">
+                        <h5
+                            style="background-color:rgba(255, 0, 0, 0); float: left; text-align: left; color: rgb(167, 167, 167); font-size:small;">
+                            by <i style="color: rgb(0, 96, 141);">
+                                {{tech.seller}}</i></h5>
+                    </div>
+
+                    <div
+                        style="position: relative; overflow: hidden; width:50%; height:fit-content; background-color:rgba(255, 255, 255, 0);clear: both; float: right;">
+                        <i class="hint">click to update</i>
+                    </div>
+
+                    <div style="position: relative;background-color: rgba(0, 255, 255, 0); width: 100%; height:fit-content; float: left;margin:0px 0px">
+                        <!-- DELETE BUTTON -->
+                        <a href="{% url 'delete_tech' tech.id %}" style=" margin-top: 0px;">
+                            <button class="deletebtn">
+                                <i class="glyphicon glyphicon-trash" style="font-size: 20px;"></i></button>
+                        </a>
+
+                        <h3 class="pricetag" style="float: left; margin-left: 10px; margin-bottom: 25px;">৳{{tech.price}}</h3>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+            </a>
+
+
+
         </div>
 
-        <div style="height: 10%; width: 100%; padding: 0px;clear: both;">
-            <div style="width: fit-content; height:100%;padding-top:0px; padding-bottom:0px; clear: both; float: right;">
-                 <i>click to update</i>
-            </div>
-            <span style="width:fit-content; float: left; text-align: left;">by <i style="color: rgb(0, 96, 141);"> {{tech.seller}}</span></i>
-            <div style="width: 100%; height:fit-content; float: left; margin-top: 5px;">
-                <h3>৳{{tech.price}}</h3>
-            </div>
-
-        </div>
-        <button><a href="{% url 'delete_tech' tech.id %}">Delete</a></button>
+        {% endfor %}
+    </div>
 </div>
-</a>
-
-
-                
-{% endfor %}
-
 {% endblock content %}

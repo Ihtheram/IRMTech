@@ -1,14 +1,14 @@
-{% extends 'StoreApp/main.html' %}
+{% extends 'StoreApp/actionpage.html' %}
 {% load static %}
 {% block content %}
 
-<h1>Add New Tech</h1>
+<h1  class="pagename" style="text-align: center;">ADD NEW TECH ITEM</h1>
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form}}
   
-    <input type="submit" name="Submit">
+    <input type="submit" name="Submit" value="Add" class="btn btn-primary" style="margin-top: 20px;margin-bottom: 0px;">
 
 </form>
 <!-- {% if image %}

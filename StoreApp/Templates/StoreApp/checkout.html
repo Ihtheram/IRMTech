@@ -2,21 +2,18 @@
 {% load static %}
 {% block content %}
 
-<h1>Checkout</h1>
+<h1 style="padding-left:10px; padding-bottom: 15px; color:rgba(255, 255, 255, 0.26)">CHECKOUT</h1>
+<div class="row"  style="margin: 0px 0px;">
 
-<a href="{% url 'cart' %}">Cart</a>
-
-<div style="margin: 0px 0px;">
-
-     <div>
-		<div>
-               <a href="{% url 'cart' %}" >&#x2190; Back to Cart</a>
+     <div class="col-lg-6">
+		<div class="box-element"  style="color:white; background-color:rgba(0, 0, 0, 0); background-image: linear-gradient(to right, #fc5a5a1e, rgba(255, 230, 0, 0.096) ); box-shadow: 0px 3px 5px black;" >
+               <a  class="btn btn-outline-dark" href="{% url 'cart' %}"  style="color:rgb(254, 254, 255); background-color: rgba(0, 162, 255, 0.671); box-shadow: 2px 2px 2px black;">&#x2190; Back to Cart</a>
 			<hr>
 			<h3>Order Outline</h3>
                <hr>
                {% for item in items %}
-			<div>
-				<div style="flex:2"><img src="{{item.tech.pictureURL}}" style="height: 100px;"></div>
+			<div class="cart-row">
+				<div style="flex:2"><img class="row-image" src="{{item.tech.pictureURL}}"></div>
 				<div style="flex:2"><p>{{item.tech.name}}</p></div>
 				<div style="flex:1"><p>৳{{item.tech.price|floatformat:2}}</p></div>
 				<div style="flex:1"><p>x{{item.quantity}}</p></div>
@@ -24,19 +21,18 @@
                {% endfor %}
 			<h5>Items:   {{order.get_cart_items}}</h5>
 			<h5>Total:   ৳{{order.get_cart_total}}</h5>
-               
 		</div>
-	</div>
-
-	<div>
-		<div id="form-wrapper">
+     </div>
+     
+	<div class="col-lg-6" >
+		<div class="box-element" id="form-wrapper"  style="color:white; background-color:rgba(0, 0, 0, 0); background-image: linear-gradient(to right, #fc5a5a1e, rgba(255, 230, 0, 0.096) ); box-shadow: 0px 3px 5px black;">
                <form id="form" >
                     <div id="user-info" >
-                         <div >
-                              <input required type="text" name="name" placeholder="Name..">
+                         <div class="form-field">
+                              <input required class="form-control" type="text" name="name" placeholder="Name.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
                          <div>
-                              <input required type="email" name="email" placeholder="Email..">
+                              <input required class="form-control" type="email" name="email" placeholder="Email.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
                     </div>
                     
@@ -44,30 +40,34 @@
                          <hr>
                          <p>Shipping Information:</p>
                          <hr>
-                         <div>
-                              <input type="text" name="address" placeholder="Address..">
+                         <div class="form-field">
+                              <input class="form-control" type="text" name="address" placeholder="Address.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
-                         <div>
-                              <input type="text" name="city" placeholder="City..">
+                         <div class="form-field">
+                              <input class="form-control" type="text" name="city" placeholder="City.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
-                         <div>
-                              <input type="text" name="state" placeholder="State..">
+                         <div class="form-field">
+                              <input class="form-control" type="text" name="state" placeholder="State.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
-                         <div>
-                              <input type="text" name="zipcode" placeholder="City Zip code..">
+                         <div class="form-field">
+                              <input class="form-control" type="text" name="zipcode" placeholder="City Zip code.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
-                         <div>
-                              <input type="text" name="country" placeholder="Country Zip code..">
+                         <div class="form-field">
+                              <input class="form-control" type="text" name="country" placeholder="Country Zip code.." style="color: White; background-color: rgba(0, 0, 0, 0.178); border: none;">
                          </div>
                     </div>
 
                     <hr>
-                    <input id="form-button" type="submit" value="Confirm Information" >
+                    <input id="form-button" class="btn btn-success btn-block" style="background-color: rgba(0, 162, 255, 0.671); border: 0px; box-shadow: 2px 2px 2px black;" type="submit" value="Confirm Information" >
                </form>
 		</div>
           
           <br>
-          <div id="payment-info"  style="margin: 5px" >
+          <div class="box-element hidden" id="payment-info"  style="color:white; background-color:rgba(0, 0, 0, 0); background-image: linear-gradient(to right, #fc5a5a1e, rgba(255, 230, 0, 0.096) ); box-shadow: 0px 3px 5px black; margin: 5px" >
+               <h4 style="padding: 0% 1%;">Select Payment Option </h4>
+               <img src="{% static 'media/MasterCard.png' %}" style="width: 15%; padding: 2% 1%;" alt="MasterCard">
+               <img src="{% static 'media/VISA.png' %}" style="width: 15%; padding: 2% 1%;" alt="VISA Card">
+               <img src="{% static 'media/PayPal.png' %}" style="width: 15%; padding: 2% 1%;" alt="PayPal"> </br>
                <button id="make-payment" class="pay"> Confirm & Make Payment </button>
           </div>
 	</div>
@@ -88,10 +88,20 @@
           document.getElementById('user-info').innerHTML = ''
      }
 
+     // Hide customer's shipping information form for Virtual Item and shows payment form
+     if (shipping == 'False' && user != 'AnonymousUser') {
+          //Hide entire form if user is logged in and shipping is false
+          document.getElementById('form-wrapper').classList.add("hidden");
+          //Show payment if logged in user wants to buy an item that does not require shipping
+          document.getElementById('payment-info').classList.remove("hidden");
+     }
+
      var form = document.getElementById('form')
      form.addEventListener('submit', function (e){
           e.preventDefault()
           console.log('Form submitted...')
+          document.getElementById('form-button').classList.add('hidden') // add class 'hidden' to Confirm Information button to hide the button
+          document.getElementById('payment-info').classList.remove('hidden') // remove class 'hidden' to unhide payment information
      })
 
      document.getElementById('make-payment').addEventListener('click', function (e) {
