@@ -2,24 +2,24 @@
 {% load static %}
 {% block content %}
 
-<h1>Your Orders</h1>
+<h1 class="pagename">ORDER HISTORY</h1>
 
-<div style="margin: 0px 12px;">
-	<div style="padding: 0px 0px;">
-		<div>
-			<div>
+<div class="row" style="margin: 0px 12px; background-image: linear-gradient(to right, #fc5a5a1e, rgba(255, 230, 0, 0.096) ); box-shadow: 0px 3px 5px black;">
+	<div class="col-lg-12" style="padding: 0px 0px;">
+
+		<div class="box-element" style="color: white ;background-color: rgba(97, 171, 255, 0); box-shadow: 2px 2px 2px rgba(0, 0, 0, 0);">
+
+			<div class="cart-row">
 				<div style="flex:2"></div>
 				<div style="flex:2"><strong>Item</strong></div>
 				<div style="flex:1"><strong>Transaction ID</strong></div>
 				<div style="flex:1"><strong>Date</strong></div>
 			</div>
 
-
-
             {% for orderedtech in orderedtechs %}
             {% if orderedtech.order.complete and orderedtech.order.customer.name == person.name %}
-			<div>
-				<div style="flex:2"><img src="{{orderedtech.tech.pictureURL}}" style="height: 100px;"></div>
+			<div class="cart-row" style="color: white;">
+				<div style="flex:2"><img class="row-image" src="{{orderedtech.tech.pictureURL}}"></div>
 				<div style="flex:2">
 					<p>{{orderedtech.tech.name}}</p>
 				</div>
@@ -37,6 +37,7 @@
 
 		
 		</div>
+
 	</div>
 </div>
 

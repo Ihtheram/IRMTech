@@ -428,12 +428,29 @@ h1,h2,h3,h4,h5,h6{
   }
 /* /USERMENU */
 
+.pagename {
+	padding-left:10px;
+	padding-bottom: 15px;
+	color:rgba(255, 255, 255, 0.26);
+}
 
 .block-contents {
 	width:100%;
 	padding-top: auto;
-	background-color: rgba(165, 42, 42, 0);
+	padding-bottom:50px;
+	background-color: rgba(255, 255, 255, 0.027);
+	min-height: 850px;
 } 
+
+footer {
+    clear: both;
+    position: relative;
+	padding-top: 50px;
+	margin: 0 0;
+	text-align: center;
+	background-color: rgba(255, 0, 0, 0);
+	color: rgba(255, 255, 255, 0.493);
+}
 
 /* desktop view */
 @media (min-width: 921px) {
@@ -610,8 +627,8 @@ h1,h2,h3,h4,h5,h6{
   transition-duration: 0.1s;
   cursor: pointer;
   margin-bottom: 10px;
-
 }
+
 .pluscart:hover {
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
@@ -738,4 +755,74 @@ h1,h2,h3,h4,h5,h6{
     text-shadow: 0px 0px 1px rgb(255, 255, 255), 0px 0px 10px rgb(255, 255, 255),0px 0px 20px rgb(255, 0, 0);
     background-image: linear-gradient(to  right,#ff0000, rgb(0, 67, 129),rgb(0, 64, 124),rgb(0, 67, 129));
     box-shadow: 0px 0px 1px rgb(255, 255, 255), 0px 0px 10px rgba(255, 255, 255, 0.733),0px 0px 20px rgba(255, 38, 0, 0.5);
+}
+
+
+
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* ------------------------------------ MANAGETECH STYLING ------------------------------------- --------------------------------- MANAGETECH STYLING ------------------------------------ */
+/* ------------------ MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------ ----------------- MANAGETECH STYLING -------------------- MANAGETECH STYLING ------------------- */
+/* MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING MANAGETECH STYLING ---------------------------------------------------------- MANAGETECH STYLING */
+
+.deletebtn {
+	float: right;
+	width: 20%;
+	border: 0.2px solid #ffffff09;
+	background-color: #ff000010;
+	color: rgba(255, 130, 130, 0.753);
+	padding: 1px 5px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 22px;
+	transition-duration: 0.1s;
+	cursor: pointer;
+	margin-bottom: 10px;
+  }
+  
+  .deletebtn:hover {
+	color: rgb(255, 53, 53);
+	background-color: rgb(255, 119, 119);
+	text-shadow: 0px 0px 2px rgb(0, 0, 0), 0px 0px 5px rgb(0, 0, 0), 0px 0px 7px rgb(0, 0, 0), 0px 0px 15px rgb(0, 0, 0);
+	box-shadow: -10px 12px 15px rgba(255, 0, 0, 0.473), -11px 11px 115px rgba(255, 160, 160, 0.226), 0px 0px 30px rgba(255, 173, 173, 0.199);
+	text-decoration: none;
+  }
+.deletebtn {
+	transition-duration: 0.0s;
+  }
+
+  .plustech { 
+	  margin: 0% 0%;
+	  font-size: 200px;
+	  color: rgba(0, 0, 0, 0.247);
+}
+
+.itemscol:hover .plustech { 
+	color: rgb(0, 52, 82);
+	text-shadow: 0px 0px 5px rgb(253, 253, 253), 0px 0px 15px rgba(255, 255, 255, 0.226), 0px 0px 30px rgba(255, 255, 255, 0.199);
 }
