@@ -38,6 +38,47 @@ def store(request):
     context = {'person':person, 'techs':techs, 'items':items,'order':order}
     return render(request, 'StoreApp/store.html',context)
 
+def devices(request):
+
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    techs = TECH.objects.all()
+    context = {'person':person, 'techs':techs, 'items':items,'order':order}
+    return render(request, 'StoreApp/devices.html',context)
+
+def softwares(request):
+
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+        cartItems = order.get_cart_items
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+        cartItems = order['get_cart_items']
+
+    techs = TECH.objects.all()
+    context = {'person':person, 'techs':techs, 'items':items,'order':order}
+    return render(request, 'StoreApp/softwares.html',context)
 
 
 def detail(request, techId):
@@ -128,6 +169,22 @@ def checkout(request):
     context = {'person':person, 'items':items,'order':order}
     return render(request, 'StoreApp/checkout.html',context)
 
+def about(request):
+    if request.user.is_authenticated:
+        person=request.user.person
+        order, created = OrderInfo.objects.get_or_create(customer=person, complete=False)
+        items= order.orderedtech_set.all()
+    else:
+        person = {
+			'name':'guest',
+			'imageURL':'https://ssl.gstatic.com/images/branding/product/2x/avatar_square_grey_512dp.png',
+			'email':'null'
+        }
+        order = {'get_cart_items':0, 'shipping':False}
+        items = []
+
+    context = {'person':person, 'items':items,'order':order}
+    return render(request, 'StoreApp/about.html',context)
 
 
 def updateItem(request):
