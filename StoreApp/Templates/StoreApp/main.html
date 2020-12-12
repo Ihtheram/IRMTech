@@ -59,10 +59,11 @@
       </a>
 
       <!-- Menu Links MOBILE -->
-      <div id="menuLinks" class="menu-contents" style="font-size: 20px; padding: 10px;">
-        <a style="text-decoration: none; color: rgba(255, 255, 255, 0.582);" href="{% url 'devices' %}">Devices</a></br>
-        <a style="text-decoration: none; color: rgba(255, 255, 255, 0.63);" href="{% url 'softwares' %}">Softwares</a></br>
-        <a style="text-decoration: none; color: rgba(255, 255, 255, 0.664);" href="{% url 'about' %}">About</a></br>
+      <div id="menuLinks" class="menu-contents" style="font-size: 20px; padding: 10px 20px;"></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'store' %}">All Techs</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'devices' %}">Devices</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'softwares' %}">Softwares</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'about' %}">About</a></br></br>
       </div>
 
       <script>
@@ -86,7 +87,7 @@
       
       <!-- Menu Links DESKTOP -->
       <div class="menubar_div-content">
-        <a class="menu_link" style="float: left;" href="{% url 'store' %}">All Techs</a>
+        <a class="menu_link" style="float: left; padding-left: 26px;" href="{% url 'store' %}">All Techs</a>
         <a class="menu_link" style="float: left;" href="{% url 'devices' %}">Devices</a>
         <a class="menu_link" style="float: left;" href="{% url 'softwares' %}">Softwares</a>
         <a class="menu_link" style="float: left;" href="{% url 'about' %}">About</a>
@@ -132,7 +133,6 @@
 
           <!-- User drop down menu -->
           <div id="userDropdown" class="usermenu-content">
-
             <H1
               style="margin: 0%; padding: 0%; font-size: 22px; color: white; text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
               {{person.name}}</H1>
