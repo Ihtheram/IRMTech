@@ -53,13 +53,45 @@
     style="position: fixed; padding: 0px; width: 100%;  float: left; align-content: initial;background-color: rgba(77, 77, 77, 0);z-index: 2;">
 
     <div class="logo_div">
+      <i id="menuicon" class="fa fa-bars menuicon" style="cursor: pointer;" onclick="menuFunction()"></i>
       <a class="storelink" href="{% url 'store' %}">
         <h1 class="logotext"> IRMTech <span style=" padding-bottom: 5px;font-family: 'Righteous';"> EStore </span></h1>
       </a>
+
+      <!-- Menu Links MOBILE -->
+      <div id="menuLinks" class="menu-contents" style="font-size: 20px; padding: 10px 20px;"></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'store' %}">All Techs</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'devices' %}">Devices</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'softwares' %}">Softwares</a></br></br>
+        <a class="menu_link" style="float: left; padding: 10px 20px; background-color: transparent;" href="{% url 'about' %}">About</a></br></br>
+      </div>
+
+      <script>
+        function menuFunction() {
+          var x = document.getElementById("menuLinks");
+          var b = document.getElementById("block-contents");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+            b.style.filter = "blur(0px)";
+          } else {
+            x.style.display = "block";
+            b.style.filter = "blur(3px)";
+
+          }
+        }
+      </script>
+
     </div> <!-- LOGO DIV ENDS -->
 
     <div style="width: 100%; background-color: rgba(255, 255, 255, 0.062); z-index: 3;height: 70px;">
+      
       <!-- Menu Links DESKTOP -->
+      <div class="menubar_div-content">
+        <a class="menu_link" style="float: left; padding-left: 26px;" href="{% url 'store' %}">All Techs</a>
+        <a class="menu_link" style="float: left;" href="{% url 'devices' %}">Devices</a>
+        <a class="menu_link" style="float: left;" href="{% url 'softwares' %}">Softwares</a>
+        <a class="menu_link" style="float: left;" href="{% url 'about' %}">About</a>
+      </div>
 
       <div class="user_div">
 
@@ -101,7 +133,6 @@
 
           <!-- User drop down menu -->
           <div id="userDropdown" class="usermenu-content">
-
             <H1
               style="margin: 0%; padding: 0%; font-size: 22px; color: white; text-shadow: -2px 0px 5px white, 0px 0px 20px white;">
               {{person.name}}</H1>
@@ -141,22 +172,41 @@
           toggle between hiding and showing the dropdown content */
           function usermenuFunction() {
             document.getElementById("userDropdown").classList.toggle("show");
+            
+            var b = document.getElementById("block-contents");
+            if (userDropdown.classList.contains('show')) {
+                  b.style.filter = "blur(2px)";
+                }if(!userDropdown.classList.contains('show'))
+                {b.style.filter = "blur(0px)";}
           }
+
 
           // Close the dropdown if the user clicks outside of it
           window.onclick = function (event) {
 
             if (!event.target.matches('.user')) {
               var dropdowns = document.getElementsByClassName("usermenu-content");
-              var i;
+              var menudropdowns = document.getElementsByClassName("menu-contents");
+              var i, j;
+              var b = document.getElementById("block-contents");
               for (i = 0; i < dropdowns.length; i++) {
                 var openDropdown = dropdowns[i];
                 if (openDropdown.classList.contains('show')) {
                   openDropdown.classList.remove('show');
+                  b.style.filter = "blur(0px)";
                 }
               }
-            }
           }
+          if (!event.target.matches('.menuicon')) {
+          var x = document.getElementById("menuLinks");
+          var b = document.getElementById("block-contents");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                    b.style.filter = "blur(0px)";
+              }
+          }
+          }
+          
 
         </script>
       </div>
@@ -168,7 +218,7 @@
 
 
   <!-- OTHER PAGES SHOW HERE -->
-  <div class='block-contents'>
+  <div id="block-contents" class='block-contents'>
     <br>
     {% block content %}
 
@@ -177,7 +227,7 @@
 
   <footer>
     <small><p>
-        &copy; IRMTech.Inc 
+        &copy; IRMTech.Inc  <a style=" color: rgba(140, 186, 255, 0.603); padding-left:5px" href="{% url 'about' %}">About</a>
       </p>
     </small>
   <footer>

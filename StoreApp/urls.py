@@ -4,10 +4,13 @@ from . import views
 
 urlpatterns = [
     path('', views.store, name="store"),
+    path('devices/', views.devices, name="devices"),
+	path('softwares/', views.softwares, name="softwares"),
 	path('<int:techId>/detail', views.detail, name='detail'),
     path('orders/', views.orders, name="orders"),
     path('cart/', views.cart, name="cart"),
     path('checkout/', views.checkout, name="checkout"),
+    path('about/', views.about, name="about"),
 
     path('add_tech/', views.addTech, name="add_tech"),    
     path('manage_techs/', views.manageTechs, name="manage_techs"),

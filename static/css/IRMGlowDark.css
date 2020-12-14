@@ -66,6 +66,7 @@ body {
 	display: none;
 }
 
+
 .storelink {
     text-decoration: none;
     padding:0px;
@@ -483,13 +484,21 @@ footer {
 
 /* phone view */
 @media (max-width: 920px) {
+	.menubar {
+		background-image: linear-gradient( to bottom right, #1c3c53, #ff080017, #1c3c5396, #002c4b98,#dcdf3e23, #002c4b);
+		box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.267), 2px 2px 30px rgba(0, 0, 0, 0.253), 2px 2px 40px rgba(0, 0, 0, 0.274);
+	
+	}
+	
 	.menubar_div-content{
 		width:100%;
 		height: auto;
 		display: none;
+		
 
 	}
 	.logo_div{
+		
 		background-image: linear-gradient( to bottom right, #1c3c53, #ff08000c, #1c3c53, #002c4b,#fbff000c, #002c4b);
 		width: fit-content;
 		height: fit-content;
@@ -513,10 +522,7 @@ footer {
 		padding-left: 50px;
 	}
 
-	.menubar {
-		background-image: linear-gradient( to bottom right, #1c3c53, #ff08000c, #1c3c53, #002c4b,#fbff000c, #002c4b);
-		box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.267), 2px 2px 30px rgba(0, 0, 0, 0.253), 2px 2px 40px rgba(0, 0, 0, 0.274);
-	}
+
 
 	.block-contents {
 		padding-top: 90px;
@@ -818,7 +824,7 @@ footer {
 
   .plustech { 
 	  margin: 0% 0%;
-	  font-size: 200px;
+	  font-size: 150px;
 	  color: rgba(0, 0, 0, 0.247);
 }
 
