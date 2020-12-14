@@ -270,7 +270,7 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'registration/signup.html', {
 			'items': items, 'order': order, 'user': user,'form':form
-	})
+	    })
 
 from django.core.files.storage import FileSystemStorage
 def addTech(request):
@@ -339,16 +339,23 @@ def manageTechs(request):
 
 def updateTech(request, techId):
     form = TechForm()
-    tech = TECH.objects.get(id=techId)
-    form = TechForm(instance=tech)
+    this_tech = TECH.objects.get(id=techId)
+    form = TechForm(instance=this_tech)
 
     if request.method == 'POST':
         #to see what info are input, in console, uncomment the line below
         #print('Printing POST:', request.POST)
-        form = TechForm(request.POST, instance=tech)
+        form = TechForm(request.POST, request.FILES, instance=this_tech)
         if form.is_valid():
             form.save()
-            return redirect('manage_techs')
+    
+    if request.method == 'FILES':
+        #to see what info are input, in console, uncomment the line below
+        #print('Printing POST:', request.POST)
+        form = TechForm(request.FILES, instance=this_tech)
+        if form.is_valid():
+            form.update()
+            
 
     if request.user.is_authenticated:
         person=request.user.person
@@ -362,10 +369,7 @@ def updateTech(request, techId):
         }
         order = {'get_cart_total': 0, 'get_cart_items': 0, 'shipping': False}
         items = []
-    try:
-        this_tech = TECH.objects.get(id=techId)
-    except TECH.DoesNotExist:
-        raise Http404("Tech does not exist")
+
 
     context = {'form':form, 'person':person, 'this_tech': this_tech, 'items':items,'order':order}
     return render(request, 'StoreApp/updatetech.html',context)
